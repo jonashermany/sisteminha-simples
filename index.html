@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Sisteminha Simples</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" media="screen" href="plugins/superfish/superfish.css">
+    <script src="plugins/superfish/hoverIntent.js"></script>
+    <script src="plugins/superfish/superfish.js"></script>
+    <link rel="stylesheet" href="plugins/carousel/slider.css">
+    <script src="plugins/carousel/slider.min.js"></script>
+    <link rel="stylesheet" href="plugins/totop/totop.css">
+    <script src="plugins/totop/totop.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="plugins/jquery.inputmask.bundle.js"></script>
+    <script src="plugins/jquery.validate.js"></script>
+    <link rel="stylesheet" href="plugins/touchtouch/touchTouch.css" />
+    <script src="plugins/touchtouch/touchTouch.jquery.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#menu').superfish({
+                delay: 300
+            });
+
+            $('#carousel').rbtSlider({
+                height: '90vh',
+                'dots': true,
+                'arrows': true,
+                'auto': 3
+            });
+
+            $('.thumbs a').touchTouch();
+
+            $('.totop').tottTop({
+                scrollTop: 100
+            });
+
+            $('#telefone').inputmask('(99) 9999[9]-9999');
+            $('#email').inputmask("email");
+
+            $('form').validate();
+
+            $.getJSON('estados-cidades.json', function (data) {
+                var itens = '<option value=""> Selecione um Estado </option>';
+
+                $.each(data.estados, function (key, val) {
+                    itens = itens + '<option value="' + key + '">' + val.nome + '</option>';
+                });
+
+                $('#estado').html(itens);
+                $('#estado').change(function () {
+                    cidades = '';
+                    var cidades = '<option value=""> Selecione uma Cidade </option>';
+
+                    $.each(data.estados[$(this).val()].cidades, function (key, val) {
+                        cidades = cidades + '<option value="' + val + '">' + val + '</option>';
+                    });
+
+                    $('#cidade').html(cidades);
+                }).change();
+            });
+        });
+
+        $(function () {
+            $("#data_nascimento").datepicker();
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <span>Jonas Daniel Hermany</span>
+    </header>
+    <nav>
+        <ul class="sf-menu" id="menu">
+            <li>
+                <a href="#">Página Inicial</a>
+            </li>
+            <li class="current">
+                <a href="#">Produtos</a>
+                <ul>
+                    <li>
+                        <a href="#">Perecíveis</a>
+                    </li>
+                    <li>
+                        <a href="#">Não-perecíveis</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Cadastro</a>
+            </li>
+            <li>
+                <a href="#">Quem Somos</a>
+            </li>
+            <li>
+                <a href="#">Contato</a>
+            </li>
+        </ul>
+    </nav>
+    <section>
+        <div class="slider" id="carousel">
+            <div class="slItems">
+                <div class="slItem" style="background-image: url('https://unsplash.it/1920/1080?image=990');"></div>
+                <div class="slItem" style="background-image: url('https://unsplash.it/1920/1080?image=976');"></div>
+                <div class="slItem" style="background-image: url('https://unsplash.it/1920/1080?image=950');"></div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <form method="post" action="">
+            <label for="nome">Nome: </label>
+            <input type="text" id="nome" name="nome" /><br />
+            <label for="email">E-mail: </label>
+            <input type="text" id="email" name="email" required /><br />
+            <label for="telefone">Telefone: </label>
+            <input type="text" id="telefone" name="telefone" required /><br />
+            <label for="data_nascimento">Data de Nascimento: </label>
+            <input type="text" id="data_nascimento" name="data_nascimento" /><br />
+            <label for="estado">Estado: </label>
+            <select id="estado"></select><br />
+            <label for="cidade">Cidade: </label>
+            <select id="cidade"></select><br /><br />
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+    <section id="galeria">
+        <h2>Galeria de Fotos</h2>
+        <div class="thumbs">
+	        <a href="http://farm8.staticflickr.com/7013/6754656011_3de2cc73a2_z.jpg" style="background-image:url(http://farm8.staticflickr.com/7013/6754656011_3de2cc73a2_m.jpg)"></a>
+	        <a href="http://farm8.staticflickr.com/7042/6895252645_45f5dfffaa_z.jpg" style="background-image:url(http://farm8.staticflickr.com/7042/6895252645_45f5dfffaa_m.jpg)"></a>
+	        <a href="http://farm8.staticflickr.com/7183/6943277737_21b521659c_z.jpg" style="background-image:url(http://farm8.staticflickr.com/7183/6943277737_21b521659c_m.jpg)"></a>
+	        <a href="http://farm8.staticflickr.com/7047/7000951429_5eae078a62_z.jpg" style="background-image:url(http://farm8.staticflickr.com/7047/7000951429_5eae078a62_m.jpg)"></a>
+	        <a href="http://farm6.staticflickr.com/5346/7051537899_efc7a44830_z.jpg" style="background-image:url(http://farm6.staticflickr.com/5346/7051537899_efc7a44830_m.jpg)"></a>
+	        <a href="http://farm8.staticflickr.com/7268/6951148260_440661b4d1_z.jpg" style="background-image:url(http://farm8.staticflickr.com/7268/6951148260_440661b4d1_m.jpg)"></a>
+	        <a href="http://farm8.staticflickr.com/7259/6930112984_5fcc076288_z.jpg" style="background-image:url(http://farm8.staticflickr.com/7259/6930112984_5fcc076288_m.jpg)"></a>
+	        <a href="http://farm8.staticflickr.com/7276/6886626710_047cd03acb_z.jpg" style="background-image:url(http://farm8.staticflickr.com/7276/6886626710_047cd03acb_m.jpg)"></a>
+	        <a href="http://farm8.staticflickr.com/7020/6683299491_f2b5f6aa8b_z.jpg" style="background-image:url(http://farm8.staticflickr.com/7020/6683299491_f2b5f6aa8b_m.jpg)"></a>
+        </div>
+        <footer>
+    </section>
+    <div class="totop">Voltar ao Topo</div>
+</body>
+
+</html>
